@@ -12,7 +12,6 @@ const emojis = require('./emoji.json');
 client.on('ready', () => {
     client.generateInvite(["ADMINISTRATOR"]).then(link =>{
         console.log(link);
-        console.log();
     });
 });
 
@@ -36,6 +35,10 @@ client.on('message', message => {
         message.channel.send('😭');
     }
 
+    if (messageCheck.includes('rip')) {
+        message.channel.send('⚰️');
+    }
+
     if (messageCheck.includes('thanks')||messageCheck.includes('thnx')) {
         message.channel.send('😎');
     }
@@ -48,6 +51,12 @@ client.on('message', message => {
         message.channel.send(emojis[Math.floor(Math.random()*emojis.length)].emoji);
     }
 
-  });
+});
+
+client.on('guildMemberAdd', member => {
+    const channel = member.guild.channels.find(ch => ch.name === 'member-log');
+    if (!channel) return;
+    channel.send(`Get out, ${member}`);
+});
 
 client.login(settings.token);
