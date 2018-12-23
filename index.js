@@ -50,7 +50,11 @@ client.on('message', message => {
     if(Math.floor(Math.random()*500)==0){
         message.channel.send(emojis[Math.floor(Math.random()*emojis.length)].emoji);
     }
+});
 
+client.on('messageDelete',message=>{
+    //console.log(message);
+    message.channel.send("Someone deleted something! ... I saw that ...");
 });
 
 client.on('guildMemberAdd', member => {
