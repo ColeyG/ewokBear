@@ -46,7 +46,7 @@ client.on('message', message => {
     }
 
     if (messageCheck.includes('ewok')&&messageCheck.includes('shitpost')){
-        message.channel.send('https://api.imgur.com/3/gallery/random/random');
+        message.channel.send('https://imgur.com/random');
     }
 
     if(Math.floor(Math.random()*500)==0){
