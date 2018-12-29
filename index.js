@@ -29,6 +29,12 @@ client.on('message', message => {
         }
     });
 
+    if(messageCheck.includes('like')){
+        if(messageCheck.includes('give')){
+            message.channel.send('👍');
+        }
+    }
+
     if (messageCheck.includes('bad bot')) {
         message.channel.send('👿');
         discipline.botDiscipline('bad');
