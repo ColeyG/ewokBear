@@ -1,8 +1,7 @@
 const settings = require("./config.json");
-
 const Discord = require('discord.js');
-
 const client = new Discord.Client();
+const util = require('util'); 
 
 //scripts imported
 const emojis = require('./emoji.json');
@@ -13,6 +12,10 @@ client.on('ready', () => {
     client.generateInvite(["ADMINISTRATOR"]).then(link =>{
         console.log(link);
     });
+});
+
+client.on('error',(error)=>{
+    console.log('error occured: '+ util.inspect(error));
 });
 
 client.on('message', message => {
