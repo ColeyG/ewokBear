@@ -6,8 +6,8 @@ const client = new Discord.Client();
 
 const emojis = require('./emoji.json');
 
-// console.log(settings.token);
-// console.log(settings.prefix);
+//script to handle goodbot vs bad bot
+const discipline = require('./scripts/Discipline');
 
 client.on('ready', () => {
     client.generateInvite(["ADMINISTRATOR"]).then(link =>{
@@ -25,10 +25,12 @@ client.on('message', message => {
 
     if (messageCheck.includes('bad bot')) {
         message.channel.send('👿');
+        discipline.botDiscipline('bad');
     }
 
     if (messageCheck.includes('good bot')) {
         message.channel.send('👼');
+        discipline.botDiscipline('good');
     }
 
     if (messageCheck.includes('sad')) {
@@ -40,7 +42,9 @@ client.on('message', message => {
     }
 
     if (messageCheck.includes('thanks')||messageCheck.includes('thnx')) {
-        message.channel.send('😎');
+        if (messageCheck.includes('ewok')){
+            message.channel.send('😎');
+        }
     }
 
     if (messageCheck.includes('ewok')&&messageCheck.includes('daily')&&messageCheck.includes('shitpost')){
@@ -53,7 +57,6 @@ client.on('message', message => {
 });
 
 client.on('messageDelete',message=>{
-    //console.log(message);
     message.channel.send("Someone deleted something! ... I saw that ...");
 });
 
