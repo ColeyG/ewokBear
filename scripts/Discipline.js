@@ -19,7 +19,3 @@ exports.botDiscipline = function botDiscipline(resp){
         write();
     }
 }
-
-exports.hello = function() {
-    return "Helasdfasdfasfo";
-}

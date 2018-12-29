@@ -7,7 +7,7 @@ const client = new Discord.Client();
 const emojis = require('./emoji.json');
 
 //script to handle goodbot vs bad bot
-const discipline = require('./scripts/Discipline'); 
+const discipline = require('./scripts/Discipline');
 
 client.on('ready', () => {
     client.generateInvite(["ADMINISTRATOR"]).then(link =>{
