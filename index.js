@@ -4,10 +4,10 @@ const Discord = require('discord.js');
 
 const client = new Discord.Client();
 
+//scripts imported
 const emojis = require('./emoji.json');
-
-//script to handle goodbot vs bad bot
 const discipline = require('./scripts/Discipline');
+const funmsg = require('./scripts/Responses.json');
 
 client.on('ready', () => {
     client.generateInvite(["ADMINISTRATOR"]).then(link =>{
@@ -18,10 +18,13 @@ client.on('ready', () => {
 client.on('message', message => {
     //Every time the server is messaged (no matter the channel) these events occur
     let messageCheck=message.content.toLowerCase();
+    let checks=Object.keys(funmsg);
 
-    if (messageCheck.includes('like')) {
-      message.channel.send('👍');
-    }
+    checks.forEach(element => {
+        if (messageCheck.includes(element)){
+            message.channel.send(funmsg[element]);
+        }
+    });
 
     if (messageCheck.includes('bad bot')) {
         message.channel.send('👿');
@@ -33,22 +36,14 @@ client.on('message', message => {
         discipline.botDiscipline('good');
     }
 
-    if (messageCheck.includes('sad')) {
-        message.channel.send('😭');
-    }
-
-    if (messageCheck.includes('rip')) {
-        message.channel.send('⚰️');
-    }
-
     if (messageCheck.includes('thanks')||messageCheck.includes('thnx')) {
         if (messageCheck.includes('ewok')){
             message.channel.send('😎');
         }
     }
 
-    if (messageCheck.includes('ewok')&&messageCheck.includes('daily')&&messageCheck.includes('shitpost')){
-        message.channel.send('https://imgur.com/random');
+    if (messageCheck.includes('ewok')&&messageCheck.includes('shitpost')){
+        message.channel.send('https://api.imgur.com/3/gallery/random/random');
     }
 
     if(Math.floor(Math.random()*500)==0){
@@ -57,10 +52,11 @@ client.on('message', message => {
 });
 
 client.on('messageDelete',message=>{
-    message.channel.send("Someone deleted something! ... I saw that ...");
+    message.channel.send("Someone deleted something!... I saw that ...");
 });
 
 client.on('guildMemberAdd', member => {
+    //when a user is added, these events fire
     const channel = member.guild.channels.find(ch => ch.name === 'member-log');
     if (!channel) return;
     channel.send(`Get out, ${member}`);
