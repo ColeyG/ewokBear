@@ -23,6 +23,15 @@ client.on('message', message => {
     let messageCheck=message.content.toLowerCase();
     let checks=Object.keys(funmsg);
 
+    for(let i=0;i<emojis.length;i++){
+        if(messageCheck.includes(emojis[i].aliases)){
+            console.log(emojis[i].emoji);
+            if(Math.random()*100>95){
+                message.channel.send(emojis[i].emoji);
+            }
+        }
+    }
+
     checks.forEach(element => {
         if (messageCheck.includes(element)){
             message.channel.send(funmsg[element]);
