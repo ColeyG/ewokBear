@@ -32,6 +32,7 @@ client.on('message', message => {
         }
     }
 
+    //for each element in the Responses.json, the corresponding message is sent.
     checks.forEach(element => {
         if (messageCheck.includes(element)){
             message.channel.send(funmsg[element]);
