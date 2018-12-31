@@ -71,7 +71,9 @@ client.on('message', message => {
 });
 
 client.on('messageDelete',message=>{
-    message.channel.send("Someone deleted something!... I saw that ...");
+    console.log(message.member.user.tag);
+    let name=message.member.user.tag;
+    message.channel.send(name+"'s post was deleted!... I saw that ...");
 });
 
 client.on('guildMemberAdd', member => {
