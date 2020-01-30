@@ -3,7 +3,7 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const util = require('util');
 
-//scripts imported
+// scripts imported
 const emojis = require('./emoji.json');
 const discipline = require('./scripts/Discipline');
 const funmsg = require('./scripts/Responses.json');
@@ -19,30 +19,28 @@ client.on('error', (error) => {
 });
 
 client.on('message', message => {
-  //Every time the server is messaged (no matter the channel) these events occur
+  // Every time the server is messaged (no matter the channel) these events occur
   let messageCheck = message.content.toLowerCase();
   let checks = Object.keys(funmsg);
 
+  // Check if there is an applicable emote to send after a message (this is sortof spam)
   for (let i = 0; i < emojis.length; i++) {
     if (messageCheck.includes(emojis[i].aliases)) {
-      console.log();
       if (Math.random() * 10 > 9 && emojis[i].aliases[0].length > 2) {
         message.channel.send(emojis[i].emoji);
       }
     }
   }
 
-  //for each element in the Responses.json, the corresponding message is sent.
+  // for each element in the Responses.json, the corresponding message is sent.
   checks.forEach(element => {
     if (messageCheck.includes(element)) {
       message.channel.send(funmsg[element]);
     }
   });
 
-  if (messageCheck.includes('like')) {
-    if (messageCheck.includes('give')) {
-      message.channel.send('👍');
-    }
+  if (messageCheck.includes('like') && messageCheck.includes('give')) {
+    message.channel.send('👍');
   }
 
   if (messageCheck.includes('bad bot')) {
@@ -65,6 +63,7 @@ client.on('message', message => {
     message.channel.send('https://imgur.com/random');
   }
 
+  // Randomly send an emoji sometimes (also spam)
   if (Math.floor(Math.random() * 500) == 0) {
     message.channel.send(emojis[Math.floor(Math.random() * emojis.length)].emoji);
   }
@@ -73,11 +72,11 @@ client.on('message', message => {
 client.on('messageDelete', message => {
   console.log(message.member.user.tag);
   let name = message.member.user.tag;
-  message.channel.send(name + "'s post was deleted!... I saw that ...");
+  // message.channel.send(name + "'s post was deleted!... I saw that ...");
 });
 
 client.on('guildMemberAdd', member => {
-  //when a user is added, these events fire
+  // when a user is added, these events fire
   const channel = member.guild.channels.find(ch => ch.name === 'member-log');
   if (!channel) return;
   channel.send(`Get out, ${member}`);
