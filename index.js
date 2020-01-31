@@ -1,9 +1,10 @@
-const settings = require("./config.json");
 const Discord = require('discord.js');
+
 const client = new Discord.Client();
 const util = require('util');
 const fs = require('fs');
 const https = require('https');
+const settings = require('./config.json');
 
 // scripts imported
 const emojis = require('./emoji.json');
@@ -11,13 +12,13 @@ const discipline = require('./scripts/Discipline');
 const funmsg = require('./scripts/Responses.json');
 
 client.on('ready', () => {
-  client.generateInvite(["ADMINISTRATOR"]).then(link => {
+  client.generateInvite(['ADMINISTRATOR']).then((link) => {
     console.log(link);
   });
 });
 
 client.on('error', (error) => {
-  console.log('error occured: ' + util.inspect(error));
+  console.log(`error occured: ${util.inspect(error)}`);
 });
 
 const randomTag = (length) => {
@@ -32,18 +33,18 @@ const randomTag = (length) => {
 
 const downloadToMemory = (url) => {
   console.log(url);
-  let fileName = url.split("/");
+  let fileName = url.split('/');
   fileName = fileName[fileName.length - 1];
   const file = fs.createWriteStream(`memory/attachments/${randomTag(5)}-${fileName}`);
-  const request = https.get(url, function (response) {
+  https.get(url, (response) => {
     response.pipe(file);
   });
-}
+};
 
-client.on('message', message => {
+client.on('message', (message) => {
   // Every time the server is messaged (no matter the channel) these events occur
-  let messageCheck = message.content.toLowerCase();
-  let checks = Object.keys(funmsg);
+  const messageCheck = message.content.toLowerCase();
+  const checks = Object.keys(funmsg);
 
   // Check if there is an applicable emote to send after a message (this is sortof spam)
   for (let i = 0; i < emojis.length; i++) {
@@ -55,7 +56,7 @@ client.on('message', message => {
   }
 
   // for each element in the Responses.json, the corresponding message is sent.
-  checks.forEach(element => {
+  checks.forEach((element) => {
     if (messageCheck.includes(element)) {
       message.channel.send(funmsg[element]);
     }
@@ -86,31 +87,30 @@ client.on('message', message => {
   }
 
   // Randomly send an emoji sometimes (also spam)
-  if (Math.floor(Math.random() * 500) == 0) {
+  if (Math.floor(Math.random() * 500) === 0) {
     message.channel.send(emojis[Math.floor(Math.random() * emojis.length)].emoji);
   }
 
   // If a message has attachment(s)
   const attachments = [...message.attachments.keys()];
-  console.log(message.channel.id);
   if (attachments.length) {
     attachments.forEach((attachment) => {
-      if (message.channel.id == '646137819504312320') {
+      if (message.channel.id === settings.downloadChannel) {
         downloadToMemory(message.attachments.get(attachment).url);
       }
-    })
+    });
   }
 });
 
-client.on('messageDelete', message => {
-  console.log(message.member.user.tag);
-  let name = message.member.user.tag;
+client.on('messageDelete', (message) => {
+  console.log(`${message.member.user.tag}'s post was deleted`);
+  const name = message.member.user.tag;
   // message.channel.send(name + "'s post was deleted!... I saw that ...");
 });
 
-client.on('guildMemberAdd', member => {
+client.on('guildMemberAdd', (member) => {
   // when a user is added, these events fire
-  const channel = member.guild.channels.find(ch => ch.name === 'member-log');
+  const channel = member.guild.channels.find((ch) => ch.name === 'member-log');
   if (!channel) return;
   channel.send(`Get out, ${member}`);
 });
