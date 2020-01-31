@@ -92,9 +92,12 @@ client.on('message', message => {
 
   // If a message has attachment(s)
   const attachments = [...message.attachments.keys()];
+  console.log(message.channel.id);
   if (attachments.length) {
     attachments.forEach((attachment) => {
-      downloadToMemory(message.attachments.get(attachment).url);
+      if (message.channel.id == '646137819504312320') {
+        downloadToMemory(message.attachments.get(attachment).url);
+      }
     })
   }
 });
