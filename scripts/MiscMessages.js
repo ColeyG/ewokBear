@@ -5,7 +5,7 @@ exports.miscMessages = function miscMessages(messageCheck, checks, message) {
   // Check if there is an applicable emote to send after a message (this is sort of spam)
   for (let i = 0; i < emojis.length; i++) {
     if (messageCheck.includes(emojis[i].aliases)) {
-      if (Math.random() * 10 > 9 && emojis[i].aliases[0].length > 2) {
+      if (Math.random() * 10 > 9 && emojis[i].aliases[0].length > 3) {
         message.channel.send(emojis[i].emoji);
       }
     }
