@@ -2,13 +2,12 @@ const Discord = require('discord.js');
 
 const client = new Discord.Client();
 const util = require('util');
-const fs = require('fs');
-const https = require('https');
 const settings = require('./config.json');
 
 // scripts imported
 const emojis = require('./emoji.json');
 const discipline = require('./scripts/Discipline');
+const helpers = require('./scripts/Helpers');
 const funmsg = require('./scripts/Responses.json');
 
 client.on('ready', () => {
@@ -20,26 +19,6 @@ client.on('ready', () => {
 client.on('error', (error) => {
   console.log(`error occured: ${util.inspect(error)}`);
 });
-
-const randomTag = (length) => {
-  let result = '';
-  const characters = 'abcdefghjklmnpqrstuvwxyz0123456789';
-  const charactersLength = characters.length;
-  for (let i = 0; i < length; i++) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-  }
-  return result;
-};
-
-const downloadToMemory = (url) => {
-  console.log(url);
-  let fileName = url.split('/');
-  fileName = fileName[fileName.length - 1];
-  const file = fs.createWriteStream(`memory/attachments/${randomTag(5)}-${fileName}`);
-  https.get(url, (response) => {
-    response.pipe(file);
-  });
-};
 
 client.on('message', (message) => {
   // Every time the server is messaged (no matter the channel) these events occur
@@ -96,7 +75,7 @@ client.on('message', (message) => {
   if (attachments.length) {
     attachments.forEach((attachment) => {
       if (message.channel.id === settings.downloadChannel) {
-        downloadToMemory(message.attachments.get(attachment).url);
+        helpers.downloadToMemory(message.attachments.get(attachment).url);
       }
     });
   }
