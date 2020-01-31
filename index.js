@@ -46,7 +46,7 @@ client.on('message', (message) => {
   const messageCheck = message.content.toLowerCase();
   const checks = Object.keys(funmsg);
 
-  // Check if there is an applicable emote to send after a message (this is sortof spam)
+  // Check if there is an applicable emote to send after a message (this is sort of spam)
   for (let i = 0; i < emojis.length; i++) {
     if (messageCheck.includes(emojis[i].aliases)) {
       if (Math.random() * 10 > 9 && emojis[i].aliases[0].length > 2) {
