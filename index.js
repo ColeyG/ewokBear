@@ -2,6 +2,8 @@ const settings = require("./config.json");
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const util = require('util');
+const fs = require('fs');
+const https = require('https');
 
 // scripts imported
 const emojis = require('./emoji.json');
@@ -17,6 +19,26 @@ client.on('ready', () => {
 client.on('error', (error) => {
   console.log('error occured: ' + util.inspect(error));
 });
+
+const randomTag = (length) => {
+  let result = '';
+  const characters = 'abcdefghjklmnpqrstuvwxyz0123456789';
+  const charactersLength = characters.length;
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+};
+
+const downloadToMemory = (url) => {
+  console.log(url);
+  let fileName = url.split("/");
+  fileName = fileName[fileName.length - 1];
+  const file = fs.createWriteStream(`memory/attachments/${randomTag(5)}-${fileName}`);
+  const request = https.get(url, function (response) {
+    response.pipe(file);
+  });
+}
 
 client.on('message', message => {
   // Every time the server is messaged (no matter the channel) these events occur
@@ -66,6 +88,14 @@ client.on('message', message => {
   // Randomly send an emoji sometimes (also spam)
   if (Math.floor(Math.random() * 500) == 0) {
     message.channel.send(emojis[Math.floor(Math.random() * emojis.length)].emoji);
+  }
+
+  // If a message has attachment(s)
+  const attachments = [...message.attachments.keys()];
+  if (attachments.length) {
+    attachments.forEach((attachment) => {
+      downloadToMemory(message.attachments.get(attachment).url);
+    })
   }
 });
 
