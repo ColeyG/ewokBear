@@ -1,4 +1,3 @@
-// const Discord = require('discord.js');
 import { Client, GatewayIntentBits } from 'discord.js';
 
 const client = new Client({
@@ -37,7 +36,7 @@ client.on('messageCreate', (message) => {
   emojis.forEach((emoji) => {
     emoji.tags.forEach((tag) => {
       if (messageCheck.includes(tag)) {
-        if (Math.random() * 100 > 95) {
+        if (Math.random() * 100 > 99) {
           message.react(emoji.emoji);
         }
       }
