@@ -3,3 +3,5 @@ config.json
 memory/record.json
 memory/attachments/*
 !memory/attachments/.gitkeep
+logs.txt
+*.zip
