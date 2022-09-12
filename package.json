@@ -9,8 +9,9 @@
   },
   "author": "Cole Geerts",
   "license": "ISC",
+  "type": "module",
   "dependencies": {
-    "discord.js": "^11.4.2",
+    "discord.js": "^14.3.0",
     "ffmpeg": "0.0.4"
   }
 }

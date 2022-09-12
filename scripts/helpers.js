@@ -1,7 +1,7 @@
-const fs = require('fs');
-const https = require('https');
+import fs from 'fs';
+import https from 'https';
 
-exports.randomTag = function randomTag(length) {
+export const randomTag = function randomTag(length) {
   let result = '';
   const characters = 'abcdefghjklmnpqrstuvwxyz0123456789';
   const charactersLength = characters.length;
@@ -11,7 +11,7 @@ exports.randomTag = function randomTag(length) {
   return result;
 };
 
-exports.downloadToMemory = function downloadToMemory(url) {
+export const downloadToMemory = function downloadToMemory(url) {
   console.log(url);
   let fileName = url.split('/');
   fileName = fileName[fileName.length - 1];
