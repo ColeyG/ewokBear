@@ -6,7 +6,7 @@ exports.miscMessages = function miscMessages(messageCheck, checks, message) {
   for (let i = 0; i < emojis.length; i++) {
     if (messageCheck.includes(emojis[i].aliases)) {
       if (Math.random() * 10 > 9 && emojis[i].aliases[0].length > 3) {
-        message.channel.send(emojis[i].emoji);
+        // message.channel.send(emojis[i].emoji);
       }
     }
   }
@@ -44,6 +44,6 @@ exports.miscMessages = function miscMessages(messageCheck, checks, message) {
 
   // Randomly send an emoji sometimes (also spam)
   if (Math.floor(Math.random() * 500) === 0) {
-    message.channel.send(emojis[Math.floor(Math.random() * emojis.length)].emoji);
+    // message.channel.send(emojis[Math.floor(Math.random() * emojis.length)].emoji);
   }
 };
