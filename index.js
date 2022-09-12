@@ -12,7 +12,7 @@ const client = new Client({
 
 // scripts imported
 import settings from './config.json' assert {type: 'json'};
-import emojis from './emoji.json' assert {type: 'json'};
+import emojis from './scripts/emoji.json' assert {type: 'json'};
 import { downloadToMemory, randomTag } from './scripts/helpers.js';
 
 client.on('ready', () => {
@@ -33,6 +33,16 @@ client.on('messageCreate', (message) => {
   if (messageCheck.includes('good bot')) {
     message.react('👼');
   }
+
+  emojis.forEach((emoji) => {
+    emoji.tags.forEach((tag) => {
+      if (messageCheck.includes(tag)) {
+        if (Math.random() * 100 > 95) {
+          message.react(emoji.emoji);
+        }
+      }
+    });
+  });
 
   // If a message has attachment(s)
   const attachments = [...message.attachments.keys()];
