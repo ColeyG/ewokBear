@@ -37,7 +37,7 @@ client.on('messageCreate', (message) => {
     emoji.tags.forEach((tag) => {
       if (tag.length > 3) {
         if (messageCheck.includes(tag)) {
-          if (Math.random() * 100 > 90) {
+          if (Math.random() * 100 > 95) {
             message.react(emoji.emoji);
           }
         }
