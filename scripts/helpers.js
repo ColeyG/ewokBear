@@ -15,7 +15,7 @@ export const downloadToMemory = function downloadToMemory(url) {
   console.log(url);
   let fileName = url.split('/');
   fileName = fileName[fileName.length - 1];
-  const file = fs.createWriteStream(`memory/attachments/${randomTag(5)}-${fileName}`);
+  const file = fs.createWriteStream(`memory/attachments/${randomTag(5)}-${fileName}`.toLowerCase());
   https.get(url, (response) => {
     response.pipe(file);
   });
