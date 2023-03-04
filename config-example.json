@@ -1,4 +1,5 @@
 {
   "token": "EX",
-  "downloadChannel": "EX"
+  "downloadChannel": "EX",
+  "recurringMessageChannel": "EX"
 }

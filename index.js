@@ -1,4 +1,5 @@
 import { Client, GatewayIntentBits } from 'discord.js';
+import { CronJob } from 'cron';
 
 const client = new Client({
   intents:
@@ -55,5 +56,21 @@ client.on('messageCreate', (message) => {
     });
   }
 });
+
+new CronJob("00 00 20 * * 5", async () => {
+  const channel = client.channels.cache.get(`${settings.recurringMessageChannel}`);
+
+  channel.send({ "files": ["./friday.mp4"] });
+}, null,
+  true,
+  'America/Toronto');
+
+new CronJob("00 00 20 * * 1", async () => {
+  const channel = client.channels.cache.get(`${settings.recurringMessageChannel}`);
+
+  channel.send({ "files": ["./monday.mp4"] });
+}, null,
+  true,
+  'America/Toronto');
 
 client.login(settings.token);
