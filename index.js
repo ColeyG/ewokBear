@@ -57,7 +57,7 @@ client.on('messageCreate', (message) => {
   }
 });
 
-new CronJob("00 00 20 * * 5", async () => {
+new CronJob("00 05 20 * * 5", async () => {
   const channel = client.channels.cache.get(`${settings.recurringMessageChannel}`);
 
   channel.send({ "files": ["./friday.mp4"] });
