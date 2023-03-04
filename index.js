@@ -65,7 +65,7 @@ new CronJob("00 00 20 * * 5", async () => {
   true,
   'America/Toronto');
 
-new CronJob("00 00 20 * * 1", async () => {
+new CronJob("00 00 08 * * 1", async () => {
   const channel = client.channels.cache.get(`${settings.recurringMessageChannel}`);
 
   channel.send({ "files": ["./monday.mp4"] });
